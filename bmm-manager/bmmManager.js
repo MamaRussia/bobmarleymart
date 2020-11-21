@@ -1,5 +1,6 @@
-let mysql = require("mysql");
-let connection = mysql.createConnection({
+const mysql = require("mysql");
+const inquirer = require("inquirer");
+const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
