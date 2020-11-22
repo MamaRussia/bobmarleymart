@@ -1,9 +1,11 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const { table } = require("console");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "password",
+    password: "password",
+  database: "bobmarleymart"
 });
 
 
@@ -13,26 +15,45 @@ connection.connect(function (err) {
     return;
   }
 
-  console.log("Connected as ID: " + connection.threadId);
+    console.log("Connected as ID: " + connection.threadId);
+    
+    loadProducts();
+
 });
 
-inquirer
-    .prompt([{
-        // type: "input",
-        // name: "choice",
-        // message: "What is the ID of the item you would like to purchase? [Quit with Q]",
-        // validate: function (val) {
-        //     return !isNaN(val) || val.toLowerCase() === "q";
-        // }
-    }   /* Pass your questions in here */
-  ])
-  .then(answers => {
-    // Use user feedback for... whatever!!
-  })
-  .catch(error => {
-    if(error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else when wrong
-    }
-  });
+function loadProducts() {
+    
+    //select all products from SQL table
+    connection.query("SELECT * FROM products", function (err, res) {
+        
+        if (err) throw err;
+
+        console.table(res);   
+    })
+}
+
+// inquirer
+//     .prompt([{
+//         name: "favThing",
+//         message: "What is the ID of the strain you want to buy? [Quit with Q]" ,
+//         default: "Weed duh"
+//     },   /* Pass your questions in here */
+//   ])
+//     .then(answers => {
+//       console.log("Answer:", answers.favThing);
+//     // Use user feedback for... whatever!!
+//   })
+//   .catch(error => {
+//     if(error.isTtyError) {
+//       // Prompt couldn't be rendered in the current environment
+//     } else {
+//       // Something else when wrong
+//     }
+//   });
+
+  function checkIfIShouldExit(choice) {
+      if (choice.toLowerCase() === "q") {
+          console.log("Goodbye!");
+          process.exit(0);
+      }
+  }
