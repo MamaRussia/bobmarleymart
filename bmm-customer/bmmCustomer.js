@@ -32,24 +32,24 @@ function loadProducts() {
     })
 }
 
-// inquirer
-//     .prompt([{
-//         name: "favThing",
-//         message: "What is the ID of the strain you want to buy? [Quit with Q]" ,
-//         default: "Weed duh"
-//     },   /* Pass your questions in here */
-//   ])
-//     .then(answers => {
-//       console.log("Answer:", answers.favThing);
-//     // Use user feedback for... whatever!!
-//   })
-//   .catch(error => {
-//     if(error.isTtyError) {
-//       // Prompt couldn't be rendered in the current environment
-//     } else {
-//       // Something else when wrong
-//     }
-//   });
+inquirer
+    .prompt([{
+        name: "strainToBuy",
+        message: "What is the ID of the strain you want to buy? [Quit with Q]" ,
+      
+    },   /* Pass your questions in here */
+  ])
+    .then(answers => {
+      console.log("Answer:", answers.strainToBuy);
+    // Use user feedback for... whatever!!
+  })
+  .catch(error => {
+    if(error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else when wrong
+    }
+  });
 
   function checkIfIShouldExit(choice) {
       if (choice.toLowerCase() === "q") {
